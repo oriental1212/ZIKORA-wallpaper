@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		B10000043000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A0A7C87F30246B33000F9BFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A0A7C88630246B33000F9BFD;
+			remoteInfo = "ZIKORA-wallpaper";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		A0A7C88730246B33000F9BFD /* ZIKORA-wallpaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ZIKORA-wallpaper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B10000013000000000000001 /* ZIKORA-wallpaperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ZIKORA-wallpaperTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +27,22 @@
 			path = "ZIKORA-wallpaper";
 			sourceTree = "<group>";
 		};
+		B10000023000000000000001 /* ZIKORA-wallpaperTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "ZIKORA-wallpaperTests";
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A0A7C88430246B33000F9BFD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B10000033000000000000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				A0A7C88930246B33000F9BFD /* ZIKORA-wallpaper */,
+				B10000023000000000000001 /* ZIKORA-wallpaperTests */,
 				A0A7C88830246B33000F9BFD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				A0A7C88730246B33000F9BFD /* ZIKORA-wallpaper.app */,
+				B10000013000000000000001 /* ZIKORA-wallpaperTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +95,29 @@
 			productReference = A0A7C88730246B33000F9BFD /* ZIKORA-wallpaper.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B10000053000000000000001 /* ZIKORA-wallpaperTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B100000C3000000000000001 /* Build configuration list for PBXNativeTarget "ZIKORA-wallpaperTests" */;
+			buildPhases = (
+				B10000063000000000000001 /* Sources */,
+				B10000033000000000000001 /* Frameworks */,
+				B10000073000000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B10000083000000000000001 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				B10000023000000000000001 /* ZIKORA-wallpaperTests */,
+			);
+			name = "ZIKORA-wallpaperTests";
+			packageProductDependencies = (
+			);
+			productName = "ZIKORA-wallpaperTests";
+			productReference = B10000013000000000000001 /* ZIKORA-wallpaperTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -83,6 +131,10 @@
 					A0A7C88630246B33000F9BFD = {
 						CreatedOnToolsVersion = 26.6;
 					};
+					B10000053000000000000001 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = A0A7C88630246B33000F9BFD;
+					};
 				};
 			};
 			buildConfigurationList = A0A7C88230246B33000F9BFD /* Build configuration list for PBXProject "ZIKORA-wallpaper" */;
@@ -91,6 +143,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = A0A7C87E30246B33000F9BFD;
 			minimizedProjectReferenceProxies = 1;
@@ -100,12 +153,20 @@
 			projectRoot = "";
 			targets = (
 				A0A7C88630246B33000F9BFD /* ZIKORA-wallpaper */,
+				B10000053000000000000001 /* ZIKORA-wallpaperTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A0A7C88530246B33000F9BFD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B10000073000000000000001 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +183,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B10000063000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B10000083000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A0A7C88630246B33000F9BFD /* ZIKORA-wallpaper */;
+			targetProxy = B10000043000000000000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A0A7C89030246B34000F9BFD /* Debug */ = {
@@ -178,7 +254,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -235,7 +311,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -252,8 +328,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -263,7 +339,6 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "cn.zhikezhui.ZIKORA-wallpaper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -282,8 +357,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -293,13 +368,42 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "cn.zhikezhui.ZIKORA-wallpaper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B10000093000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cn.zhikezhui.ZIKORA-wallpaperTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZIKORA-wallpaper.app/Contents/MacOS/ZIKORA-wallpaper";
+			};
+			name = Debug;
+		};
+		B100000A3000000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cn.zhikezhui.ZIKORA-wallpaperTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZIKORA-wallpaper.app/Contents/MacOS/ZIKORA-wallpaper";
 			};
 			name = Release;
 		};
@@ -320,6 +424,15 @@
 			buildConfigurations = (
 				A0A7C89330246B34000F9BFD /* Debug */,
 				A0A7C89430246B34000F9BFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B100000C3000000000000001 /* Build configuration list for PBXNativeTarget "ZIKORA-wallpaperTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B10000093000000000000001 /* Debug */,
+				B100000A3000000000000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,0 +1,17 @@
+#!/bin/zsh
+set -euo pipefail
+
+script_dir=${0:A:h}
+repository_root=${script_dir:h}
+derived_data=${ZIKORA_DERIVED_DATA:-${TMPDIR:-/tmp}/zikora-wallpaper-derived}
+configuration=${ZIKORA_CONFIGURATION:-Debug}
+
+cd "$repository_root"
+exec xcodebuild \
+  -project ZIKORA-wallpaper.xcodeproj \
+  -scheme ZIKORA-wallpaper \
+  -configuration "$configuration" \
+  -destination 'platform=macOS' \
+  -derivedDataPath "$derived_data" \
+  CODE_SIGNING_ALLOWED=NO \
+  build "$@"

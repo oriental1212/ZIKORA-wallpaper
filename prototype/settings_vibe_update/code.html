@@ -1,0 +1,367 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Zikora - Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-container-low": "#f1f3fe",
+                "outline-variant": "#c1c6d7",
+                "on-primary-fixed": "#001a41",
+                "electric-blue": "#007AFF",
+                "tertiary-container": "#c64f00",
+                "on-primary-container": "#fefcff",
+                "glass-surface": "rgba(255, 255, 255, 0.7)",
+                "glow-accent": "rgba(10, 132, 255, 0.15)",
+                "on-tertiary-container": "#fffbff",
+                "inverse-primary": "#adc6ff",
+                "surface-tint": "#005bc1",
+                "secondary-fixed-dim": "#aac7ff",
+                "surface-container": "#ecedf9",
+                "surface-variant": "#e0e2ed",
+                "on-error": "#ffffff",
+                "on-surface": "#181c23",
+                "error-container": "#ffdad6",
+                "on-tertiary": "#ffffff",
+                "surface-dim": "#d8d9e5",
+                "tertiary-fixed-dim": "#ffb595",
+                "surface-container-high": "#e6e8f3",
+                "on-secondary": "#ffffff",
+                "on-secondary-fixed-variant": "#00468d",
+                "surface-container-lowest": "#ffffff",
+                "on-surface-variant": "#414755",
+                "primary-container": "#0070eb",
+                "secondary-container": "#0073e0",
+                "tertiary-fixed": "#ffdbcc",
+                "outline": "#717786",
+                "on-primary-fixed-variant": "#004493",
+                "secondary": "#005ab3",
+                "vivid-azure": "#0A84FF",
+                "primary-fixed-dim": "#adc6ff",
+                "surface-bright": "#f9f9ff",
+                "on-primary": "#ffffff",
+                "primary-fixed": "#d8e2ff",
+                "on-secondary-fixed": "#001b3e",
+                "background": "#f9f9ff",
+                "inverse-on-surface": "#eef0fc",
+                "on-secondary-container": "#fefcff",
+                "surface-container-highest": "#e0e2ed",
+                "on-tertiary-fixed-variant": "#7c2e00",
+                "inverse-surface": "#2d3039",
+                "surface": "#f9f9ff",
+                "on-background": "#181c23",
+                "tertiary": "#9e3d00",
+                "error": "#ba1a1a",
+                "secondary-fixed": "#d6e3ff",
+                "on-tertiary-fixed": "#351000",
+                "primary": "#0058bc",
+                "glass-border": "rgba(255, 255, 255, 0.3)",
+                "on-error-container": "#93000a"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-max": "1440px",
+                "unit": "8px",
+                "margin-desktop": "64px",
+                "gutter": "24px",
+                "margin-mobile": "20px"
+        },
+        "fontFamily": {
+                "display-md": [
+                        "Plus Jakarta Sans"
+                ],
+                "headline-hero": [
+                        "Plus Jakarta Sans"
+                ],
+                "button-text": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Plus Jakarta Sans"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Plus Jakarta Sans"
+                ],
+                "label-caps": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "display-md": [
+                        "24px",
+                        {
+                                "lineHeight": "1.3",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-hero": [
+                        "56px",
+                        {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "button-text": [
+                        "15px",
+                        {
+                                "lineHeight": "1",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "40px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body {
+            background-image: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.46) 0%, rgba(233, 226, 226, 0.28) 90%);
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #0A84FF;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #0A84FF;
+        }
+        .toggle-checkbox {
+            right: 0;
+            z-index: 1;
+            border-color: #e0e2ed;
+            transition: all 0.3s;
+        }
+        .toggle-label {
+            width: 3rem;
+            height: 1.5rem;
+            background-color: #e0e2ed;
+            border-radius: 9999px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .toggle-label::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .toggle-checkbox:checked + .toggle-label::after {
+            transform: translateX(1.5rem);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(10, 132, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="text-on-surface font-body-md antialiased flex bg-background/50">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full h-screen w-64 flex flex-col border-r border-outline-variant/30 glass-panel z-50 md:flex hidden">
+<div class="p-gutter flex items-center gap-unit">
+<img alt="ZIKORA Logo" class="w-8 h-8 rounded-md object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLt0UrG0Pj06xSoEARuHiCnUAan735NyYl6p3qye0yecPcosdHmQY2G303aK3R_twEuuSzam-oR2D9mL4m74FoC9VPFBpFK6XIo9GI_gcElzkY6pnvOQcKJQXYz2p_PbuVbupS9viDTNHGB-FkTVdlwDIQXu9aNHqPBGViAFa1gVDHgC1ZRCAs4eRRkitepvKm3kmFRp1flpH9lq_4LXcw-qVEiBtyIYjkkL7tk2qwNJ9-ePJjUtQtxB5BjX">
+<div>
+<h1 class="font-display-md text-display-md text-on-surface font-bold">ZIKORA</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Wallpaper Utility</p>
+</div>
+</div>
+<div class="flex-1 px-unit py-4 space-y-2 overflow-y-auto font-body-md text-body-md">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-glow-accent rounded-lg transition-all duration-300 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-glow-accent rounded-lg transition-all duration-300 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">auto_awesome_motion</span>
+                Sources
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-glow-accent rounded-lg transition-all duration-300 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">photo_library</span>
+                Library
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 bg-vivid-azure/10 text-vivid-azure rounded-lg transition-all duration-300 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+                Settings
+            </a>
+</div>
+<div class="p-gutter mt-auto">
+<button class="w-full bg-vivid-azure text-white rounded-full py-3 px-6 font-button-text text-button-text transition-all duration-300 hover:bg-electric-blue hover:shadow-lg hover:shadow-vivid-azure/30 cursor-pointer active:opacity-80">
+                Quick Update
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 min-h-screen">
+<!-- TopAppBar (Mobile Fallback / Desktop Header) -->
+<header class="w-full h-[64px] glass-panel border-b border-outline-variant/30 flex justify-between items-center px-margin-desktop sticky top-0 z-40 transition-all duration-300">
+<div class="font-display-md text-display-md text-on-surface md:hidden">ZIKORA</div>
+<div class="hidden md:block font-body-lg text-body-lg font-semibold text-on-surface">Settings</div>
+<div class="flex items-center gap-4 text-vivid-azure">
+<button class="font-button-text text-button-text hover:text-electric-blue transition-colors scale-95 active:scale-90 transition-transform">
+                    Next Wallpaper
+                </button>
+<div class="flex gap-2">
+<span class="material-symbols-outlined hover:text-electric-blue transition-colors cursor-pointer scale-95 active:scale-90 transition-transform">refresh</span>
+<span class="material-symbols-outlined hover:text-electric-blue transition-colors cursor-pointer scale-95 active:scale-90 transition-transform">more_vert</span>
+</div>
+</div>
+</header>
+<div class="p-margin-desktop max-w-4xl mx-auto space-y-12 pb-12">
+<div class="space-y-unit">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Preferences</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Manage application behavior and wallpaper rotation schedules.</p>
+</div>
+<!-- General Section -->
+<section class="space-y-4">
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface border-b border-outline-variant/30 pb-2 font-bold">General</h3>
+<div class="glass-panel rounded-xl p-gutter transition-all duration-300 hover:shadow-lg hover:shadow-vivid-azure/5">
+<div class="flex items-center justify-between">
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Launch at login</div>
+<div class="font-body-md text-body-md text-sm text-on-surface-variant mt-1">Start ZIKORA automatically when you start your Mac.</div>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in flex items-center">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="toggle1" name="toggle" type="checkbox">
+<label class="toggle-label block overflow-hidden h-6 rounded-full cursor-pointer" for="toggle1"></label>
+</div>
+</div>
+</div>
+</section>
+<!-- Wallpaper Section -->
+<section class="space-y-4">
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface border-b border-outline-variant/30 pb-2 font-bold">Wallpaper Rotation</h3>
+<div class="glass-panel rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-vivid-azure/5">
+<div class="p-gutter border-b border-outline-variant/30 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors hover:bg-white/40 items-center">
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Mode</div>
+<div class="font-body-md text-body-md text-sm text-on-surface-variant mt-1">Choose how wallpapers are displayed.</div>
+</div>
+<div class="flex bg-surface-variant/50 rounded-lg p-1 backdrop-blur-sm">
+<button class="px-4 py-1.5 rounded-md bg-white shadow-sm font-button-text text-button-text text-on-surface transition-all">Slideshow</button>
+<button class="px-4 py-1.5 rounded-md font-button-text text-button-text text-on-surface-variant hover:text-on-surface transition-all">Daily</button>
+</div>
+</div>
+<div class="p-gutter border-b border-outline-variant/30 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors hover:bg-white/40 items-center">
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Order</div>
+<div class="font-body-md text-body-md text-sm text-on-surface-variant mt-1">Selection method for the next image.</div>
+</div>
+<select class="form-select block w-full md:w-48 rounded-lg border-outline-variant/50 bg-white/50 backdrop-blur-sm text-on-surface font-body-md text-body-md focus:border-vivid-azure focus:ring-vivid-azure transition-all">
+<option>Random</option>
+<option>Sequential</option>
+</select>
+</div>
+<div class="p-gutter flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors hover:bg-white/40 items-center">
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Interval</div>
+<div class="font-body-md text-body-md text-sm text-on-surface-variant mt-1">How often the wallpaper changes.</div>
+</div>
+<select class="form-select block w-full md:w-48 rounded-lg border-outline-variant/50 bg-white/50 backdrop-blur-sm text-on-surface font-body-md text-body-md focus:border-vivid-azure focus:ring-vivid-azure transition-all">
+<option>Every 5 minutes</option>
+<option>Every 15 minutes</option>
+<option selected="">Every 30 minutes</option>
+<option>Every hour</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Storage Section -->
+<section class="space-y-4">
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface border-b border-outline-variant/30 pb-2 font-bold">Storage Management</h3>
+<div class="glass-panel rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-vivid-azure/5">
+<div class="p-gutter border-b border-outline-variant/30 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors hover:bg-white/40">
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Retention Policy</div>
+<div class="font-body-md text-body-md text-sm text-on-surface-variant mt-1">Automatically delete cached wallpapers.</div>
+</div>
+<select class="form-select block w-full md:w-48 rounded-lg border-outline-variant/50 bg-white/50 backdrop-blur-sm text-on-surface font-body-md text-body-md focus:border-vivid-azure focus:ring-vivid-azure transition-all">
+<option>Keep indefinitely</option>
+<option selected="">After 30 days</option>
+<option>After 7 days</option>
+</select>
+</div>
+<div class="p-gutter flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-colors hover:bg-white/40">
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Cache Location</div>
+<div class="font-body-md text-body-md text-sm text-on-surface-variant mt-1">~/.zikora/cache (2.4 GB used)</div>
+</div>
+<div class="flex gap-2 w-full sm:w-auto h-10">
+<button class="flex-1 sm:flex-none px-4 py-2 rounded-full border border-outline-variant bg-white/50 hover:bg-white/80 font-button-text text-button-text text-on-surface transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">folder_open</span>
+                                Open
+                            </button>
+<button class="flex-1 sm:flex-none px-4 py-2 rounded-full bg-inverse-surface hover:bg-inverse-surface/90 font-button-text text-button-text text-inverse-on-surface transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+                                Clean Now
+                            </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+
+
+</body></html>

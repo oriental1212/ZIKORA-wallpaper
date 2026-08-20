@@ -1,0 +1,35 @@
+{
+  "fixtures": [
+    {
+      "name": "valid-small",
+      "file": "valid-small.png",
+      "declaredMIMEType": "image/png",
+      "expected": "valid"
+    },
+    {
+      "name": "duplicate-content-a",
+      "file": "valid-small.png",
+      "declaredMIMEType": "image/png",
+      "expected": "valid"
+    },
+    {
+      "name": "duplicate-content-b",
+      "file": "valid-small.png",
+      "declaredMIMEType": "image/png",
+      "expected": "valid"
+    },
+    {
+      "name": "corrupt-image",
+      "file": "corrupt-image.png",
+      "declaredMIMEType": "image/png",
+      "expected": "invalid"
+    },
+    {
+      "name": "html-as-image",
+      "file": "html-as-image.jpg",
+      "declaredMIMEType": "image/jpeg",
+      "expected": "invalid"
+    }
+  ],
+  "license": "Generated in-repository for testing; no personal or copyrighted source material."
+}
