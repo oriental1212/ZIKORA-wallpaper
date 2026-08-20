@@ -4,6 +4,13 @@ import Testing
 
 @MainActor
 struct AppEnvironmentTests {
+    @Test("Existing wallpaper sources bypass the onboarding page")
+    func existingSourcesOpenTheApp() {
+        #expect(AppLaunchRouting.shouldShowAppShell(onboardingCompleted: false, sourceCount: 1))
+        #expect(AppLaunchRouting.shouldShowAppShell(onboardingCompleted: true, sourceCount: 0))
+        #expect(!AppLaunchRouting.shouldShowAppShell(onboardingCompleted: false, sourceCount: 0))
+    }
+
     @Test("Preview dependencies return fixed date, calendar, UUID, and random index")
     func previewDependenciesAreDeterministic() async throws {
         var calendar = Calendar(identifier: .gregorian)

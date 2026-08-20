@@ -216,7 +216,10 @@ private struct SourcesPageView: View {
         } else {
             LazyVGrid(
                 columns: [
-                    GridItem(.fixed(420), spacing: DesignSpacing.standard)
+                    GridItem(
+                        .adaptive(minimum: 420, maximum: 420),
+                        spacing: DesignSpacing.standard
+                    )
                 ],
                 spacing: DesignSpacing.standard
             ) {

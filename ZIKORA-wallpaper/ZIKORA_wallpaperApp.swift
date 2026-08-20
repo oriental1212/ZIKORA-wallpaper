@@ -15,10 +15,21 @@ struct ZIKORA_wallpaperApp: App {
 
     init() {
         let environment = AppEnvironment.live()
-        _environment = State(initialValue: environment)
-        _persistence = State(initialValue: PersistenceStartupController.live(
+        let persistence = PersistenceStartupController.live(
             logger: environment.logger
-        ))
+        )
+
+        if case .ready = persistence.phase,
+           let container = persistence.modelContainer,
+           let managedRootURL = persistence.managedRootURL {
+            environment.configurePersistentStore(
+                container: container,
+                managedRootURL: managedRootURL
+            )
+        }
+
+        _environment = State(initialValue: environment)
+        _persistence = State(initialValue: persistence)
     }
 
     var body: some Scene {
@@ -28,13 +39,6 @@ struct ZIKORA_wallpaperApp: App {
                 case .ready:
                     ContentView()
                         .task {
-                            if let container = persistence.modelContainer,
-                               let managedRootURL = persistence.managedRootURL {
-                                environment.configurePersistentStore(
-                                    container: container,
-                                    managedRootURL: managedRootURL
-                                )
-                            }
                             await environment.startServices()
                         }
                 case .recoveryRequired(let message):

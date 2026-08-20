@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+nonisolated enum AppLaunchRouting {
+    static func shouldShowAppShell(onboardingCompleted: Bool, sourceCount: Int) -> Bool {
+        onboardingCompleted || sourceCount > 0
+    }
+}
+
 struct ContentView: View {
     @Environment(\.appEnvironment) private var environment
     @State private var onboardingCompleted = false
@@ -28,7 +34,11 @@ struct ContentView: View {
         .task {
             if let repository = environment.repository {
                 let stored = try? await repository.loadSettings()
-                onboardingCompleted = stored?.onboardingCompleted ?? false
+                let sources = (try? await repository.allSources()) ?? []
+                onboardingCompleted = AppLaunchRouting.shouldShowAppShell(
+                    onboardingCompleted: stored?.onboardingCompleted == true,
+                    sourceCount: sources.count
+                )
             }
             await environment.startServices()
             loaded = true
