@@ -33,6 +33,7 @@ P00 决策冻结
 - [资料优先级、仓库现状与范围](00-analysis/source-baseline.md)
 - [原型与设计审阅](00-analysis/design-and-prototype-audit.md)
 - [待决策问题与默认建议](00-analysis/open-decisions.md)
+- [新增来源即时同步与页面布局问题评估](00-analysis/2026-08-ui-and-source-sync-assessment.md)
 
 ### 架构辅佐
 

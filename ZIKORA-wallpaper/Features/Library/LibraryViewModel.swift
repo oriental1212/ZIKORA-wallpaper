@@ -19,6 +19,7 @@ final class LibraryViewModel: ObservableObject {
     private let managedRootURL: URL
     private let randomSelector: any RandomSelecting
     private var filterTask: Task<Void, Never>?
+    private var appliedSearchText = ""
 
     init(
         repository: any WallpaperRepository,
@@ -158,12 +159,19 @@ final class LibraryViewModel: ObservableObject {
 
     func setSearchText(_ value: String) {
         searchText = value
+    }
+
+    func submitSearch() {
         filterTask?.cancel()
-        filterTask = Task { [weak self] in
-            try? await Task.sleep(for: .milliseconds(300))
-            guard !Task.isCancelled else { return }
-            self?.applyFilter()
-        }
+        appliedSearchText = searchText
+        applyFilter()
+    }
+
+    func resetSearch() {
+        filterTask?.cancel()
+        searchText = ""
+        appliedSearchText = ""
+        applyFilter()
     }
 
     func fileURL(for wallpaper: Wallpaper) -> URL {
@@ -180,7 +188,8 @@ final class LibraryViewModel: ObservableObject {
     }
 
     func applyFilter() {
-        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let query = (appliedSearchText.isEmpty ? searchText : appliedSearchText)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
         guard !query.isEmpty else {
             filteredWallpapers = wallpapers
             return

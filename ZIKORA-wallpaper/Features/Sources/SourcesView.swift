@@ -52,7 +52,8 @@ struct SourcesView: View {
             repository: repository,
             clock: environment.clock,
             calendar: environment.calendar,
-            uuidGenerator: environment.uuidGenerator
+            uuidGenerator: environment.uuidGenerator,
+            sourceFetcher: environment.services?.sourceFetcher ?? UnavailableSourceFetcher()
         )
         model = viewModel
         await viewModel.load()
@@ -109,7 +110,7 @@ private struct SourcesPageView: View {
                     mode: presentation.mode,
                     onSaved: { sourceID in
                         model.focusSource(id: sourceID)
-                        Task { await model.load() }
+                        Task { await model.syncNewSource(id: sourceID) }
                     }
                 )
             }
@@ -133,7 +134,7 @@ private struct SourcesPageView: View {
             deletionMessage(for: impact)
         }
         .overlay {
-            if model.isPreparingDeletion {
+            if model.isPreparingDeletion || model.syncingSourceID != nil {
                 ProgressView()
                     .controlSize(.small)
                     .padding()
@@ -173,21 +174,6 @@ private struct SourcesPageView: View {
                 }
                 .help("sources.refresh.help")
 
-                Menu {
-                    Button {
-                        formPresentation = .create
-                    } label: {
-                        Label("sources.add", systemImage: "plus")
-                    }
-                    Button {
-                        Task { await model.load() }
-                    } label: {
-                        Label("sources.refresh", systemImage: "arrow.clockwise")
-                    }
-                } label: {
-                    Label("sources.more", systemImage: "ellipsis.circle")
-                }
-                .help("sources.more.help")
             }
         }
     }
@@ -214,31 +200,37 @@ private struct SourcesPageView: View {
                 action: { formPresentation = .create }
             )
         } else {
-            LazyVGrid(
-                columns: [
-                    GridItem(
-                        .adaptive(minimum: 420, maximum: 420),
-                        spacing: DesignSpacing.standard
-                    )
-                ],
-                spacing: DesignSpacing.standard
-            ) {
-                ForEach(model.sources, id: \.id) { source in
-                    SourceCardView(
-                        source: source,
-                        isFocused: model.focusedSourceID == source.id,
-                        onToggle: { isEnabled in
-                            Task { await model.setEnabled(sourceID: source.id, isEnabled: isEnabled) }
-                        },
-                        onEdit: { formPresentation = .edit(source) },
-                        onDelete: {
-                            Task { await model.requestDelete(source) }
-                        }
-                    )
-                    .id(source.id)
+            GeometryReader { geometry in
+                LazyVGrid(
+                    columns: sourceColumns(for: geometry.size.width),
+                    alignment: .leading,
+                    spacing: DesignSpacing.standard
+                ) {
+                    ForEach(model.sources, id: \.id) { source in
+                        SourceCardView(
+                            source: source,
+                            isFocused: model.focusedSourceID == source.id,
+                            onToggle: { isEnabled in
+                                Task { await model.setEnabled(sourceID: source.id, isEnabled: isEnabled) }
+                            },
+                            onEdit: { formPresentation = .edit(source) },
+                            onDelete: {
+                                Task { await model.requestDelete(source) }
+                            }
+                        )
+                        .id(source.id)
+                    }
                 }
             }
+            .frame(minHeight: CGFloat(model.sources.count) * 172)
         }
+    }
+
+    private func sourceColumns(for width: CGFloat) -> [GridItem] {
+        let itemWidth: CGFloat = 420
+        let spacing = DesignSpacing.standard
+        let count = max(1, Int((width + spacing) / (itemWidth + spacing)))
+        return Array(repeating: GridItem(.fixed(itemWidth), spacing: spacing), count: count)
     }
 
     @ViewBuilder

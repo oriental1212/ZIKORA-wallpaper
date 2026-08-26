@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AppKit
 
 nonisolated enum AppLaunchRouting {
     static func shouldShowAppShell(onboardingCompleted: Bool, sourceCount: Int) -> Bool {
@@ -30,7 +31,8 @@ struct ContentView: View {
                 }
             }
         }
-        .frame(minWidth: 800, minHeight: 560)
+        .frame(minWidth: 960, minHeight: 650)
+        .background(WindowMinimumSize(minimum: CGSize(width: 960, height: 650)))
         .task {
             if let repository = environment.repository {
                 let stored = try? await repository.loadSettings()
@@ -44,6 +46,27 @@ struct ContentView: View {
             loaded = true
         }
     }
+}
+
+private struct WindowMinimumSize: NSViewRepresentable {
+    let minimum: CGSize
+
+    func makeNSView(context: Context) -> WindowMinimumSizeView { WindowMinimumSizeView(minimum: minimum) }
+    func updateNSView(_ nsView: WindowMinimumSizeView, context: Context) { nsView.applyMinimumSize() }
+}
+
+private final class WindowMinimumSizeView: NSView {
+    let minimum: CGSize
+
+    init(minimum: CGSize) { self.minimum = minimum; super.init(frame: .zero) }
+    required init?(coder: NSCoder) { nil }
+
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        applyMinimumSize()
+    }
+
+    func applyMinimumSize() { window?.contentMinSize = minimum }
 }
 
 #Preview {

@@ -55,10 +55,6 @@ private struct LibraryPageView: View {
     @State private var selected: WallpaperSelection?
     @State private var pendingDeletion: Wallpaper?
 
-    private let columns = [
-        GridItem(.adaptive(minimum: 180, maximum: 260), spacing: DesignSpacing.standard)
-    ]
-
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: DesignSpacing.section) {
@@ -118,16 +114,6 @@ private struct LibraryPageView: View {
                 }
                 .help("library.refresh.help")
 
-                Menu {
-                    Button {
-                        Task { await model.refresh() }
-                    } label: {
-                        Label("library.refresh", systemImage: "arrow.clockwise")
-                    }
-                } label: {
-                    Label("library.more", systemImage: "ellipsis.circle")
-                }
-                .help("library.more.help")
             }
         }
     }
@@ -141,16 +127,20 @@ private struct LibraryPageView: View {
                 .foregroundStyle(DesignColor.secondaryText)
                 .fixedSize(horizontal: false, vertical: true)
 
-            TextField("library.search", text: searchBinding)
-                .textFieldStyle(.plain)
-                .padding(.horizontal, DesignSpacing.standard)
-                .padding(.vertical, DesignSpacing.medium)
-                .background(DesignColor.glassSurface, in: Capsule())
-                .overlay {
-                    Capsule()
-                        .stroke(DesignColor.glassBorder, lineWidth: 1)
-                }
-                .frame(maxWidth: 360)
+            HStack(spacing: DesignSpacing.small) {
+                TextField("library.search", text: searchBinding)
+                    .textFieldStyle(.plain)
+                    .padding(.horizontal, DesignSpacing.standard)
+                    .padding(.vertical, DesignSpacing.medium)
+                    .background(DesignColor.glassSurface, in: Capsule())
+                    .overlay { Capsule().stroke(DesignColor.glassBorder, lineWidth: 1) }
+                    .frame(width: 300)
+                    .onSubmit { model.submitSearch() }
+                Button("action.search", systemImage: "magnifyingglass") { model.submitSearch() }
+                    .buttonStyle(.borderedProminent)
+                Button("action.reset", systemImage: "arrow.counterclockwise") { model.resetSearch() }
+                    .disabled(model.searchText.isEmpty)
+            }
         }
     }
 
@@ -170,28 +160,35 @@ private struct LibraryPageView: View {
                 title: "library.no-results.title",
                 message: "library.no-results.message",
                 actionTitle: "library.clear-filter",
-                action: { model.setSearchText("") }
+                action: { model.resetSearch() }
             )
         } else {
-            LazyVGrid(columns: columns, spacing: DesignSpacing.standard) {
-                ForEach(model.filteredWallpapers, id: \.id) { wallpaper in
-                    Button {
-                        selected = WallpaperSelection(wallpaper: wallpaper)
-                    } label: {
-                        WallpaperCellView(
-                            wallpaper: wallpaper,
-                            thumbnailProvider: model.thumbnailProvider,
-                            request: model.thumbnailRequest(
-                                for: wallpaper,
-                                size: ThumbnailSize(width: 320, height: 200)
-                            ),
-                            isCurrent: wallpaper.isCurrent
-                        )
+            GeometryReader { geometry in
+                LazyVGrid(columns: libraryColumns(for: geometry.size.width), alignment: .leading, spacing: DesignSpacing.standard * 2) {
+                    ForEach(model.filteredWallpapers, id: \.id) { wallpaper in
+                        Button {
+                            selected = WallpaperSelection(wallpaper: wallpaper)
+                        } label: {
+                            WallpaperCellView(
+                                wallpaper: wallpaper,
+                                thumbnailProvider: model.thumbnailProvider,
+                                request: model.thumbnailRequest(for: wallpaper, size: ThumbnailSize(width: 320, height: 200)),
+                                isCurrent: wallpaper.isCurrent
+                            )
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
             }
+            .frame(minHeight: CGFloat(model.filteredWallpapers.count) * 280)
         }
+    }
+
+    private func libraryColumns(for width: CGFloat) -> [GridItem] {
+        let itemWidth: CGFloat = 250
+        let spacing = DesignSpacing.standard * 2
+        let count = max(1, Int((width + spacing) / (itemWidth + spacing)))
+        return Array(repeating: GridItem(.fixed(itemWidth), spacing: spacing), count: count)
     }
 
     private var searchBinding: Binding<String> {
@@ -296,6 +293,11 @@ private struct WallpaperDetailView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: DesignSpacing.large) {
+            Button { dismiss() } label: {
+                Label("action.back", systemImage: "chevron.left")
+            }
+            .buttonStyle(.borderless)
+
             Text("library.detail.title")
                 .font(DesignTypography.pageTitle)
 

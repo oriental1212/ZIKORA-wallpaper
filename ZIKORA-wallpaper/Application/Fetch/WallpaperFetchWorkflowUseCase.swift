@@ -6,7 +6,7 @@ import Foundation
 /// validation, content hashing, atomic commit, desktop application, and
 /// successful/failed fetch records. Automatic retries are recorded through
 /// `PersistentRetryCoordinator`; manual failures never mutate automatic counts.
-nonisolated struct WallpaperFetchWorkflowUseCase: WallpaperFetchWorkflow {
+nonisolated struct WallpaperFetchWorkflowUseCase: TargetedWallpaperFetchWorkflow {
     private let repository: any RepositoryStore
     private let downloader: any ImageDownloading
     private let validator: any ImageValidating
@@ -65,6 +65,36 @@ nonisolated struct WallpaperFetchWorkflowUseCase: WallpaperFetchWorkflow {
         reason: FetchTriggerReason,
         progress: @escaping @Sendable (FetchProgress) -> Void
     ) async throws -> FetchExecutionResult {
+        try await execute(
+            taskKind: taskKind,
+            reason: reason,
+            requestedSourceID: nil,
+            applyToDesktop: true,
+            progress: progress
+        )
+    }
+
+    func execute(
+        sourceID: SourceID,
+        reason: FetchTriggerReason,
+        progress: @escaping @Sendable (FetchProgress) -> Void
+    ) async throws -> FetchExecutionResult {
+        try await execute(
+            taskKind: .manualUpdate,
+            reason: reason,
+            requestedSourceID: sourceID,
+            applyToDesktop: false,
+            progress: progress
+        )
+    }
+
+    private func execute(
+        taskKind: FetchTaskKind,
+        reason: FetchTriggerReason,
+        requestedSourceID: SourceID?,
+        applyToDesktop: Bool,
+        progress: @escaping @Sendable (FetchProgress) -> Void
+    ) async throws -> FetchExecutionResult {
         try Task.checkCancellation()
         progress(FetchProgress(phase: .checking, fraction: 0.05))
 
@@ -73,7 +103,7 @@ nonisolated struct WallpaperFetchWorkflowUseCase: WallpaperFetchWorkflow {
         let day = LocalDay(containing: now, calendar: calendar)
         let sources = try await repository.allSources()
         let schedule = try await repository.loadSchedule()
-        let plannedSourceID = schedule?.sourceID(for: day.weekday(calendar: calendar))
+        let plannedSourceID = requestedSourceID ?? schedule?.sourceID(for: day.weekday(calendar: calendar))
 
         let prepared = try await PrepareDailyFetchRecordUseCase(
             repository: repository,
@@ -82,7 +112,7 @@ nonisolated struct WallpaperFetchWorkflowUseCase: WallpaperFetchWorkflow {
             uuidGenerator: uuidGenerator
         ).execute(taskKind: taskKind, plannedSourceID: plannedSourceID)
 
-        if prepared.status == .success {
+        if requestedSourceID == nil, prepared.status == .success {
             return FetchExecutionResult(
                 taskKind: taskKind,
                 wallpaperID: prepared.wallpaperID,
@@ -93,7 +123,13 @@ nonisolated struct WallpaperFetchWorkflowUseCase: WallpaperFetchWorkflow {
         let plannedAttemptFinalFailure = taskKind == .automaticDaily
             && prepared.automaticAttemptCount >= 3
             && !prepared.usedDefaultSource
-        let resolution = ResolveSourceUseCase.resolve(
+        let resolution = requestedSourceID.map { sourceID in
+            SourceResolutionDecision(
+                actualSourceID: sources.first(where: { $0.id == sourceID && $0.isEnabled })?.id,
+                usedDefaultSource: false,
+                reason: .plannedSource
+            )
+        } ?? ResolveSourceUseCase.resolve(
             plannedSourceID: plannedSourceID,
             defaultSourceID: schedule?.defaultSourceID,
             sources: sources,
@@ -127,6 +163,7 @@ nonisolated struct WallpaperFetchWorkflowUseCase: WallpaperFetchWorkflow {
             record: record,
             source: source,
             taskKind: taskKind,
+            applyToDesktop: applyToDesktop,
             day: day,
             now: now,
             calendar: calendar,
@@ -138,6 +175,7 @@ nonisolated struct WallpaperFetchWorkflowUseCase: WallpaperFetchWorkflow {
         record: DailyFetchRecord,
         source: WallpaperSource,
         taskKind: FetchTaskKind,
+        applyToDesktop: Bool,
         day: LocalDay,
         now: Date,
         calendar: Calendar,
@@ -213,18 +251,20 @@ nonisolated struct WallpaperFetchWorkflowUseCase: WallpaperFetchWorkflow {
                 didCreateNewWallpaper = true
             }
 
-            progress(FetchProgress(phase: .applying, fraction: 0.8))
-            do {
-                _ = try await setCurrentWallpaper.execute(
-                    wallpaperID: wallpaper.id,
-                    fileURL: fileURL(for: wallpaper)
-                )
-            } catch {
-                if didCreateNewWallpaper {
-                    try? await fileStore.remove(relativePath: wallpaper.relativePath.rawValue)
-                    try? await repository.delete(id: wallpaper.id)
+            if applyToDesktop {
+                progress(FetchProgress(phase: .applying, fraction: 0.8))
+                do {
+                    _ = try await setCurrentWallpaper.execute(
+                        wallpaperID: wallpaper.id,
+                        fileURL: fileURL(for: wallpaper)
+                    )
+                } catch {
+                    if didCreateNewWallpaper {
+                        try? await fileStore.remove(relativePath: wallpaper.relativePath.rawValue)
+                        try? await repository.delete(id: wallpaper.id)
+                    }
+                    throw error
                 }
-                throw error
             }
 
             progress(FetchProgress(phase: .recordingSuccess, fraction: 0.9))
@@ -353,6 +393,7 @@ nonisolated struct WallpaperFetchWorkflowUseCase: WallpaperFetchWorkflow {
                     record: next,
                     source: defaultSource,
                     taskKind: .automaticDaily,
+                    applyToDesktop: true,
                     day: day,
                     now: now,
                     calendar: calendar,

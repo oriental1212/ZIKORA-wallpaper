@@ -51,7 +51,7 @@ struct ZIKORA_wallpaperApp: App {
             }
             .environment(\.appEnvironment, environment)
         }
-        .defaultSize(width: 1000, height: 700)
+        .defaultSize(width: 960, height: 700)
         .commands { CommandGroup(replacing: .newItem) { } }
 
         MenuBarExtra("ZIKORA", systemImage: "photo.on.rectangle.angled") {

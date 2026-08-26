@@ -13,6 +13,7 @@ final class AppServices {
     let rotationScheduler: RotationScheduler
     let setCurrentWallpaper: SetCurrentWallpaperUseCase
     let commandCenter: WallpaperCommandCenter
+    let sourceFetcher: any SourceFetchOrchestrating
     let retryScheduler: PersistentRetryScheduler
     let automaticTrigger: AutomaticFetchTriggerCoordinator
     let lifecycle: WindowLifecycleCoordinator
@@ -109,6 +110,7 @@ final class AppServices {
         self.workflow = workflow
 
         let orchestrator = FetchOrchestrator(workflow: workflow)
+        self.sourceFetcher = orchestrator
         self.commandCenter = WallpaperCommandCenter(
             orchestrator: orchestrator,
             repository: repository,

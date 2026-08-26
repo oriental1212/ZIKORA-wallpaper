@@ -1,6 +1,12 @@
 import Combine
 import Foundation
 
+struct UnavailableSourceFetcher: SourceFetchOrchestrating {
+    func run(sourceID: SourceID) async throws -> FetchExecutionResult {
+        throw AppFailure(code: .unknown)
+    }
+}
+
 @MainActor
 final class SourcesViewModel: ObservableObject {
     @Published private(set) var sources: [WallpaperSource] = []
@@ -11,23 +17,41 @@ final class SourcesViewModel: ObservableObject {
     @Published var pendingDeletion: SourceDeletionImpact?
     @Published var notice: OperationNotice?
     @Published private(set) var focusedSourceID: SourceID?
+    @Published private(set) var syncingSourceID: SourceID?
 
     private let repository: any RepositoryStore
     private let clock: any Clock
     private let calendar: any CalendarProviding
     private let uuidGenerator: any UUIDGenerating
+    private let sourceFetcher: any SourceFetchOrchestrating
     private var resetFocusTask: Task<Void, Never>?
 
     init(
         repository: any RepositoryStore,
         clock: any Clock = SystemClock(),
         calendar: any CalendarProviding = SystemCalendarProvider(),
-        uuidGenerator: any UUIDGenerating = SystemUUIDGenerator()
+        uuidGenerator: any UUIDGenerating = SystemUUIDGenerator(),
+        sourceFetcher: any SourceFetchOrchestrating = UnavailableSourceFetcher()
     ) {
         self.repository = repository
         self.clock = clock
         self.calendar = calendar
         self.uuidGenerator = uuidGenerator
+        self.sourceFetcher = sourceFetcher
+    }
+
+    func syncNewSource(id: SourceID) async {
+        await load()
+        guard sources.first(where: { $0.id == id })?.isEnabled == true else { return }
+        syncingSourceID = id
+        defer { syncingSourceID = nil }
+        do {
+            _ = try await sourceFetcher.run(sourceID: id)
+            await load()
+        } catch {
+            notice = OperationNotice(tone: .failure, message: Self.userMessage(for: error))
+            await load()
+        }
     }
 
     var defaultReferenceState: WeeklyPlanReferenceState {

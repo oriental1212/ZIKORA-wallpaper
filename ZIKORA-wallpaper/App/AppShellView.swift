@@ -24,7 +24,8 @@ struct AppShellView: View {
                     .fill(.thinMaterial)
                     .overlay(DesignColor.background.opacity(0.55))
             }
-            .frame(minWidth: 190)
+            .frame(minWidth: 220)
+            .navigationSplitViewColumnWidth(min: 220, ideal: 230, max: 260)
         } detail: {
             NavigationStack {
                 Group {
@@ -41,6 +42,7 @@ struct AppShellView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
+            .frame(minWidth: 700)
         }
         .navigationSplitViewStyle(.balanced)
         .task {

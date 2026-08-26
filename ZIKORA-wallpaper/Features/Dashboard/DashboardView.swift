@@ -57,24 +57,32 @@ private struct DashboardPageView: View {
     private var hero: some View {
         if let wallpaper = commandCenter.currentWallpaper {
             ZStack(alignment: .bottom) {
-                AsyncImage(url: fileURL(for: wallpaper)) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    case .failure:
-                        placeholder
-                    @unknown default:
-                        placeholder
+                GeometryReader { geometry in
+                    AsyncImage(url: fileURL(for: wallpaper)) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(
+                                    width: geometry.size.width,
+                                    height: geometry.size.height
+                                )
+                                .clipped()
+                        case .failure:
+                            placeholder
+                        @unknown default:
+                            placeholder
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 520)
-                .clipped()
+                .background(DesignColor.elevatedSurface)
+//                .padding(.horizontal, DesignSpacing.large)
 
                 LinearGradient(
                     colors: [.clear, .black.opacity(0.72)],

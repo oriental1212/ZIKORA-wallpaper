@@ -60,3 +60,33 @@ extension FetchOrchestrator: WallpaperFetchWorkflow {
         try await run(taskKind: taskKind, reason: reason)
     }
 }
+
+extension FetchOrchestrator: SourceFetchOrchestrating {
+    func run(sourceID: SourceID) async throws -> FetchExecutionResult {
+        if let activeTask {
+            return try await activeTask.value
+        }
+        guard let workflow = workflow as? any TargetedWallpaperFetchWorkflow else {
+            throw AppFailure(code: .unknown)
+        }
+
+        let token = UUID()
+        let task = Task {
+            try await workflow.execute(
+                sourceID: sourceID,
+                reason: .manual,
+                progress: { _ in }
+            )
+        }
+        activeTask = task
+        activeToken = token
+        do {
+            let result = try await task.value
+            clearActiveTask(if: token)
+            return result
+        } catch {
+            clearActiveTask(if: token)
+            throw error
+        }
+    }
+}

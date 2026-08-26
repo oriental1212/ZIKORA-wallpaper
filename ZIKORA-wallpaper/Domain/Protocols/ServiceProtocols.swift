@@ -155,6 +155,18 @@ nonisolated protocol WallpaperFetchWorkflow: Sendable {
     ) async throws -> FetchExecutionResult
 }
 
+nonisolated protocol TargetedWallpaperFetchWorkflow: WallpaperFetchWorkflow {
+    func execute(
+        sourceID: SourceID,
+        reason: FetchTriggerReason,
+        progress: @escaping @Sendable (FetchProgress) -> Void
+    ) async throws -> FetchExecutionResult
+}
+
+nonisolated protocol SourceFetchOrchestrating: Sendable {
+    func run(sourceID: SourceID) async throws -> FetchExecutionResult
+}
+
 nonisolated protocol FetchOrchestrating: Sendable {
     func run(
         taskKind: FetchTaskKind,
