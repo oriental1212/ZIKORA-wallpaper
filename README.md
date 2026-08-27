@@ -74,6 +74,15 @@ open ZIKORA-wallpaper.xcodeproj
 
 ZIKORA 不使用 CloudKit。启用“开机启动”时，macOS 可能要求用户在系统设置中确认登录项权限。
 
+## 支持与交流
+
+如果 ZIKORA 对你有帮助，可以自愿支持项目维护；问题反馈和使用交流可加入 QQ 群。
+
+| 支持开发 | 加入交流群 |
+| --- | --- |
+| <img src="assets/wechat-support.webp" alt="微信支付支持二维码" width="280"> | <img src="assets/qq-group.webp" alt="ZIKORA-wallpaper QQ 交流群二维码" width="280"> |
+| 微信支付 | QQ 群：`1108807265` |
+
 ## 许可证
 
 本项目基于 [MIT License](./LICENSE) 开源。
