@@ -19,7 +19,7 @@ ZIKORA 将图片源、每周计划、壁纸轮播和本地图库集中在一个�
 
 ## 下载
 
-前往 [GitHub Releases](https://github.com/oriental1212/ZIKORA-wallpaper/releases) 下载最新安装包。产品介绍与更多信息见 [ZIKORA 官网](https://zikora-wallpaper.oriental011212.workers.dev/)。
+前往 [GitHub Releases](https://github.com/oriental1212/ZIKORA-wallpaper/releases) 下载最新安装包。产品介绍与更多信息见 [ZIKORA 官网](https://zikora-wallpaper.pages.dev/)。
 
 ## 系统要求
 
