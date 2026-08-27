@@ -1,0 +1,12 @@
+# Local IDE metadata
+.idea/
+
+# Agent and product/design documentation
+[Aa][Gg][Ee][Nn][Tt][Ss].md
+[Dd][Ee][Ss][Ii][Gg][Nn].md
+*[Pp][Rr][Dd]*
+*需求规格说明书*
+docs/
+
+# Design prototypes and generated prototype assets
+prototype/

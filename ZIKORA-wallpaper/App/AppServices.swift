@@ -135,6 +135,8 @@ final class AppServices {
         guard !started else { return }
         started = true
 
+        await synchronizeLoginItemConfiguration()
+
         await retryProxy.set(workflow)
         await retryScheduler.scheduleNextDue()
         await rotationScheduler.start()
@@ -153,6 +155,16 @@ final class AppServices {
                 commandCenter.markFinished()
             }
         }
+    }
+
+    private func synchronizeLoginItemConfiguration() async {
+        guard let settings = try? await repository.loadSettings(), settings.launchAtLogin else {
+            return
+        }
+
+        let status = await loginItemCoordinator.synchronize()
+        guard status == .disabled else { return }
+        _ = await loginItemCoordinator.setEnabled(true)
     }
 
     func shutdown() async {
