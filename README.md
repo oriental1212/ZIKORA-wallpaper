@@ -2,7 +2,7 @@
 
 一个原生 macOS 壁纸管理器，从自定义图片源获取壁纸，并按计划自动更新桌面。
 
-[官方网站](https://zikora-wallpaper.oriental011212.workers.dev/) · [下载安装包](https://github.com/oriental1212/ZIKORA-wallpaper/releases)
+[官方网站](https://zikora-wallpaper.pages.dev/) · [下载安装包](https://github.com/oriental1212/ZIKORA-wallpaper/releases)
 
 ZIKORA 将图片源、每周计划、壁纸轮播和本地图库集中在一个应用中。它使用 SwiftUI 构建界面，以 SwiftData 保存配置与历史记录，并通过 macOS 系统 API 更新桌面壁纸。
 
