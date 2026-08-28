@@ -6,6 +6,15 @@
 
 ZIKORA 将图片源、每周计划、壁纸轮播和本地图库集中在一个应用中。它使用 SwiftUI 构建界面，以 SwiftData 保存配置与历史记录，并通过 macOS 系统 API 更新桌面壁纸。
 
+## 支持与交流
+
+如果 ZIKORA 对你有帮助，可以自愿支持项目维护；问题反馈和使用交流可加入 QQ 群。
+
+| 支持开发 | 加入交流群 |
+| --- | --- |
+| <img src="assets/wechat-support.webp" alt="微信支付支持二维码" width="280"> | <img src="assets/qq-group.webp" alt="ZIKORA-wallpaper QQ 交流群二维码" width="280"> |
+| 微信支付 | QQ 群：`1108807265` |
+
 ## 功能
 
 - 添加、编辑和验证自定义 HTTPS 图片源。
@@ -73,15 +82,6 @@ open ZIKORA-wallpaper.xcodeproj
 ```
 
 ZIKORA 不使用 CloudKit。启用“开机启动”时，macOS 可能要求用户在系统设置中确认登录项权限。
-
-## 支持与交流
-
-如果 ZIKORA 对你有帮助，可以自愿支持项目维护；问题反馈和使用交流可加入 QQ 群。
-
-| 支持开发 | 加入交流群 |
-| --- | --- |
-| <img src="assets/wechat-support.webp" alt="微信支付支持二维码" width="280"> | <img src="assets/qq-group.webp" alt="ZIKORA-wallpaper QQ 交流群二维码" width="280"> |
-| 微信支付 | QQ 群：`1108807265` |
 
 ## 许可证
 
